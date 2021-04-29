@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <title>WeatherApp</title>
+</head>
+
+<body>
+    <div class="container bg-grey-lightest mx-auto shadow rounded pb-4 bg-cover"
+        style="color:#606F7B;background-color: rgb(165, 182, 198); background-image:url('https://images.pexels.com/photos/1118873/pexels-photo-1118873.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500');">
+
+
+        <div class="mt-2 p-4 border-b border-grey-light  text-center">
+            <div class="relative mr-6 my-2">
+                <form method="POST">{% csrf_token %}
+
+                    {% comment %} <input type="search"
+                        class="bg-transparent shadow rounded border-0 p-3 placeholder-white"
+                        placeholder="Search by name..."> {% endcomment %}
+                    {{form.name}}
+
+
+                    <button type="submit"
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                        Search
+                    </button>
+                </form>
+
+            </div>
+
+            <span class="text-4xl font-thin">{{ city_weather.city }}</span>
+            {% comment %} <span class="hidden sm:inline-block align-bottom text-xs">( 94041 )</span> {% endcomment %}
+        </div>
+
+
+        <div class="text-center text-xl text-grey-light p-4 flex justify-center">
+            <span>{{ city_weather.description }}</span>
+            <span><img src="http://openweathermap.org/img/w/{{city_weather.icon}}.png" alt="image"> </span>
+        </div>
+        <div class="flex justify-center">
+            <div class="text-center p-2">
+                <div class="text-lg text-grey-light">
+                    <span class="text-right">{{ city_weather.temprature }}</span>
+                    <span class="text-center text-5xl text-white mx-6  font-thin">{{ city_weather.temprature }}</span>
+                    <span class="text-left">{{ city_weather.temprature }}</span>
+                </div>
+                <div class="text-grey-light tracking-wide">
+                    Your Local State Time : {{ time.time }}
+                </div>
+            </div>
+        </div>
+
+        <!-- component -->
+        <!-- This is an example component -->
+        {% for city_weather in weather_data %}
+        <div class="py-5">
+            <div class="container  mx-auto grid">
+                <!-- Cards -->
+                <div class="flex justify-center">
+                    <!-- Card -->
+                    <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+                        <div <span><img src="http://openweathermap.org/img/w/{{city_weather.icon}}.png" alt="image">
+                            </span>
+
+                        </div>
+                        <div>
+                            <p>
+                                <span class="text-2xl font-thin">{{ city_weather.city }}</span>
+                            </p>
+                            <span>{{ city_weather.temprature }}</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card -->
+
+            </div>
+
+        </div>
+        {% endfor %}
+
+    </div>
+
+</body>
+
+</html>
